@@ -8,13 +8,13 @@ from RPA.Archive import Archive
 
 
 @task
-def order_robots_from_RobotSpareBin():
+def orders():
     """
-    Orders robots from RobotSpareBin Industries Inc.
-    Saves the order as a PDF file.
+    Orders robots
+    Saves the order as a PDF.
     Saves screenshot of the robot.
-    Embeds the screenshot of robot to the PDF.
-    Creates ZIP archive.
+    Embeds the screenshot of robot in PDF.
+    Creates ZIP file.
     """
 
     open_website()
@@ -37,7 +37,7 @@ def close_modal():
     page.click("button:text('OK')")
 
 def get_orders():
-    """CSV files into tables"""    
+    """read csv file into table"""    
     table = Tables()
     orders = table.read_table_from_csv("orders.csv") 
 
@@ -83,12 +83,12 @@ def save_receipt_as_pdf(order_number):
 
 
 def embed_screenshot(screenshot, pdf_file):
-    """Embeds the screenshot to thge receipt PDF""" 
+    """Embeds screenshot to thge receipt PDF""" 
     pdf = PDF()
     pdf.add_files_to_pdf(files=[screenshot], target_document=pdf_file, append=True)
     
     
 def archive_receipts():
-    """Archives the receipts""" 
+    """Archives outputs""" 
     folder = Archive()
     folder.archive_folder_with_zip('output', 'output/ordes.zip', include='*.pdf')
